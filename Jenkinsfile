@@ -134,7 +134,7 @@ pipeline {
                     imageValidation().call()
                     echo "***** Entering Dev Environment *****"
                     dockerDeploy('dev', '5232', '8232').call()
-                    echo "******* Deploy Dev Successfully *****"
+                
                 }
             }
         }
