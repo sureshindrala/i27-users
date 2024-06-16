@@ -33,7 +33,7 @@ pipeline {
         )
     }
     environment {
-        APPLICATION_NAME = "eureka"
+        APPLICATION_NAME = "user"
         POM_VERSION = readMavenPom().getVersion()
         POM_PACKAGING = readMavenPom().getPackaging()
         DOCKER_HUB = "docker.io/sureshindrala"
@@ -96,7 +96,7 @@ pipeline {
                     sh '''
                     echo "Starting SonarQube analysis"
                     mvn clean verify sonar:sonar \
-                        -Dsonar.projectKey=i27-eureka \
+                        -Dsonar.projectKey=i27-user \
                         -Dsonar.host.url=${SONAR_URL} \
                         -Dsonar.login=${SONAR_TOKEN}
                     '''
@@ -133,7 +133,7 @@ pipeline {
                 script {
                     imageValidation().call()
                     echo "***** Entering Dev Environment *****"
-                    dockerDeploy('dev', '5761', '8761').call()
+                    dockerDeploy('dev', '5232', '8232').call()
                     echo "******* Deploy Dev Successfully *****"
                 }
             }
@@ -148,7 +148,7 @@ pipeline {
                 script {
                     imageValidation().call()
                     echo "***** Entering Test Environment *****"
-                    dockerDeploy('tst', '6761', '8761').call()
+                    dockerDeploy('tst', '6232', '8232').call()
                     echo "*********** Test Environment successfully *******"
                 }
             }
@@ -163,7 +163,7 @@ pipeline {
                 script {
                     imageValidation().call()
                     echo "***** Entering Stage Environment *****"
-                    dockerDeploy('stage', '7761', '8761').call()
+                    dockerDeploy('stage', '7232', '8232').call()
                     echo " stage environment completed suceesfully"
                 }
             }
@@ -188,7 +188,7 @@ pipeline {
                 }
                 script {
                     imageValidation().call()
-                    dockerDeploy('prod', '8761', '8761').call()
+                    dockerDeploy('prod', '8232', '8232').call()
                  
                 }
             }
@@ -275,3 +275,10 @@ def buildApp() {
         }
     }
 
+
+
+// User, container port is 8232
+// dev 5232
+// test 6232
+//stage 7232
+//prod 8232
